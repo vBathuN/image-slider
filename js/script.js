@@ -17,7 +17,7 @@ $(".recent-slider").each(function() {
                                 break
                             }
                         try {
-                            var c = n.media$thumbnail.url.replace("320-c")
+                            var c = n.media$thumbnail.url.replace("s72-c", "h670-w320-no")
                         } catch (p) {
                             var c = "https://lh3.googleusercontent.com/24RAodFW8xxgzHpVBAthJHsf_szjRoa3-KzlAEdFgB6X6A5Gmlm-nCvt5nRkE95T52PmHSE4Mf5wvNGoRUgIXjjHi4PjiucY3RimpoVdiTPKQN5Jdj2n9-9bW0wUSzQcirYstqGO8Unv5v7RMU5JD_Q-lEuBgtUfXEmHxOs6ENvJBanzORTRCVXwSzYNRJxijualu8mHhR5S6DG8l4CIo6uADoudrzXGsz7oszRXccZK_FbasxG5xJ9O0mtPuIVavRO8Or89er61NiJIctiUWV0YqtMMOqK214VSjs8-lAx_7LmkneNOrkP7NdXvGTK0fxHgRBiHL7Tm2weLM33LjyMEzY4ygL68Hx81iJK4D-YRmUa8NJhpEKs8q93jgjwJ3ZrgDSzn2pKI-y3c5VWrYf-H38_lWOIMf7uuTOzKUOqoQYZLN8bhFYVyB4bLUwfX0gDtTT38QsV6MILDBQZl6gHQrHt1C8Lpp9EZ0x-1Vl2r2HeKlXS60iuRKZdfSWZNbibE2y9GCfdbBzRUGa-G3GRkQstDu2UBtNOo6WHZ4GI=w600-h250-no"
                         }
