@@ -1,7 +1,7 @@
 $(".recent-slider").each(function() {
             $(this).append('<div id="slider"></div>');
             var e = $(this).attr("data-label"),
-                n = "https://rss.rtcs.live/feeds/posts/summary/-/" + e + "?max-results=" + 5 + "&alt=json-in-script",
+                n = "https://rss.rtbs.in/feeds/posts/summary/-/" + e + "?max-results=" + 5 + "&alt=json-in-script",
                 l = $(this);
             $.ajax({
                 type: "GET",
