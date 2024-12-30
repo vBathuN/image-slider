@@ -1,0 +1,206 @@
+/*
+* jQuery Nivo Slider v3.2
+* http://nivo.dev7studios.com
+* Use in www.ar1web.com
+* Copyright 2012, Dev7studios
+* Free to use and abuse under the MIT license.
+* https://www.opensource.org/licenses/mit-license.php
+*/
+.slidernivo {}
+/* The Nivo Slider styles */
+.recent-slider {width: 200px; }
+.nivoSlider {
+position:relative;
+      z-index: 99999;
+width:320px;
+height:600px;
+overflow: hidden;
+text-align:Center;
+}
+.nivoSlider img {
+position:absolute;
+top:0px;
+left:0px;
+max-width: none;
+height:670px !important;
+}
+.top-l-slider .nivoSlider {
+position:relative;
+width:320px;
+height:600px;
+overflow: hidden;
+text-align:Center;
+}
+.top-l-slider .nivoSlider img {
+position:absolute;
+top:0px;
+left:0px;
+max-width: none;
+height:600px !important;
+}
+.nivo-main-image {
+display: block !important;
+position: relative !important;
+width: 320px !important;
+}
+.nivoSlider a.nivo-imageLink {
+position:absolute;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+border:0;
+padding:0;
+margin:0;
+z-index:6;
+display:none;
+background:white;
+filter:alpha(opacity=0);
+opacity:0;
+}
+.nivo-slice {
+display:block;
+position:absolute;
+z-index:5;
+height:100%;
+top:0;
+}
+.nivo-box {
+display:block;
+position:absolute;
+z-index:5;
+overflow:hidden;
+}
+.nivo-box img { display:block; }
+/* Caption styles */
+.nivo-caption {
+position:absolute;
+bottom:10px;
+left:5%;
+display:block;
+width:90%;
+text-align:center;
+font:400 26px 'segoe ui',sans-serif;
+z-index:8;
+-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+box-sizing: border-box;         /* Opera/IE 8+ */
+color:#fff;
+display: none;
+}
+.nivo-caption p {
+text-align: Center;
+font: 400 13px 'segoe ui',sans-serif;
+margin: 10px 20px;
+padding: 10px;
+display: inline-block;
+border-radius: 4px;
+background: rgba(34, 34, 34, 0.83);
+line-height: 21px;
+display: none;
+}
+.nivo-caption a{
+color:#fff;
+display: none;
+}
+.nivo-caption h3{
+text-align: center;
+padding: 5px;
+display: inline-block;
+border-radius: 3px;
+margin: 0;
+line-height: 37px !important;
+background: #47cf73;
+font: 400 30px 'segoe ui',sans-serif;
+display: none;
+}
+.nivo-caption .sliderdata{
+margin:10px;
+text-align:Center;
+color:#fff;
+display: none;
+}
+.nivo-html-caption {
+display:none;
+}
+/* Direction nav styles (e.g. Next & Prev) */
+.nivo-directionNav a {
+position: absolute;
+top: 50%;
+margin-top: -15px;
+z-index: 9;
+font-size: 0;
+display: block;
+width: 30px;
+height: 30px;
+border-radius: 5px;
+line-height: 30px !important;
+background-color: rgba(255,255,255,0.5);
+cursor: pointer;
+/* border: 3px solid #fff; */
+box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+-moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+ display: none;
+}
+.nivo-prevNav {
+left:10px;
+display: none;
+}
+.nivo-prevNav:before{
+content:'\2190';
+position:Absolute;
+left:0;
+top:0;
+display:block;
+z-index:100;
+font:400 20px sans-serif;
+color:#fff;
+height:30px;
+width:30px;
+line-height:30px !important;
+text-align:center
+display: none;
+}
+.nivo-nextNav:before{
+content:'\2192';
+position:Absolute;
+left:0;
+top:0;
+display:block;
+z-index:100;
+font:400 20px sans-serif;
+color:#fff;
+height:30px;
+width:30px;
+line-height:30px !important;
+text-align:center;
+display: none;
+}
+.nivo-nextNav {
+right:10px;
+display: none;
+}
+.nivo-controlNav {
+    text-align: center;
+    z-index: 99999;
+    position: relative;
+    bottom: 290px;
+    font-size: 0;
+    display: none;
+}
+.nivo-controlNav a {
+cursor: pointer;
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: #FFF;
+    float: right;
+    border-radius: 10px;
+    margin-right: 5px;
+    display: none;
+}
+.nivo-controlNav a.active {
+background:#47cf73;
+display: none;
+}
