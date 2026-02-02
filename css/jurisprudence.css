@@ -8,11 +8,11 @@
 */
 .slidernivo {}
 /* The Nivo Slider styles */
-.recent-slider {width: 1280px; }
+.recent-slider {width: 1380px; }
 .nivoSlider {
 position:relative;
       z-index: 99999;
-width:1280px;
+width:1380px;
 height:670px;
 overflow: hidden;
 text-align:Center;
@@ -26,7 +26,7 @@ height:670px !important;
 }
 .top-l-slider .nivoSlider {
 position:relative;
-width:1280px;
+width:1380px;
 height:670px;
 overflow: hidden;
 text-align:Center;
@@ -41,7 +41,7 @@ height:670px !important;
 .nivo-main-image {
 display: block !important;
 position: relative !important;
-width: 1280px !important;
+width: 1380px !important;
 }
 .nivoSlider a.nivo-imageLink {
 position:absolute;
