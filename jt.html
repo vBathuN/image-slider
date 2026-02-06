@@ -2,133 +2,131 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Slider with label fot blogger</title>
+  <title>Responsive Slider for OBS</title>
   <style>
-/* OBS-ல் முழு திரையில் தெரிய அடிப்படை மாற்றம் 
-   (HTML & BODY Full Size)
-*/
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
+    /* பக்கம் முழுவதையும் பயன்படுத்த CSS */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden; /* ஸ்க்ரால் பார் வராமல் தடுக்க */
+      background-color: transparent; /* OBS இல் பின்னணி மறைய */
+    }
 
-/*
-* jQuery Nivo Slider v3.2
-* http://nivo.dev7studios.com
-* Use in www.ar1web.com
-* Copyright 2012, Dev7studios
-* Free to use and abuse under the MIT license.
-* https://www.opensource.org/licenses/mit-license.php
-*/
-.slidernivo {
-    width: 100%;
-    height: 100%;
-}
+    /* Slider Container */
+    .slidernivo, .recent-slider {
+      width: 100% !important;
+      height: 100% !important;
+    }
 
-/* The Nivo Slider styles - FIXED for OBS Responsive */
-.recent-slider {
-    width: 100% !important; 
-    height: 100% !important;
-}
+    /* Nivo Slider அடிப்படை மாற்றங்கள் */
+    .nivoSlider {
+      position: relative;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden;
+    }
 
-.nivoSlider {
-    position: relative;
-    z-index: 99999;
-    width: 100% !important;    /* 1280px ஐ 100% ஆக மாற்றப்பட்டது */
-    height: 100% !important;   /* 720px ஐ 100% ஆக மாற்றப்பட்டது */
-    overflow: hidden;
-    text-align: Center;
-}
+    /* படங்கள் தானாக அளவை மாற்றிக்கொள்ள (Auto Fit) */
+    .nivoSlider img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+      
+      /* மிக முக்கியம்: OBSல் நீங்கள் வைக்கும் அளவுக்கு படம் 'Fit' ஆக */
+      object-fit: cover; 
+      /* குறிப்பு: 
+         object-fit: cover; -> பெட்டி முழுவதையும் நிரப்பும் (ஓரங்கள் கட் ஆகலாம்).
+         object-fit: contain; -> படம் முழுமையாகத் தெரியும் (ஓரங்களில் கேப் விழலாம்).
+      */
+    }
 
-.nivoSlider img {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    max-width: none;
-    
-    /* OBS-ல் படம் தானாக Fit ஆக முக்கிய மாற்றம் */
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover; /* இது ரேஷியோ மாறாமல் படத்தை பெட்டிக்குள் நிரப்பும் */
-}
+    /* தலைப்புகள் (Captions) - தேவைப்பட்டால் மட்டும் வைத்துக்கொள்ளுங்கள் */
+    .nivo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      font-family: sans-serif;
+      z-index: 99;
+      opacity: 0.9;
+      box-sizing: border-box;
+      display: none; /* OBSல் Caption வேண்டாம் என்றால் இதை அப்படியே விடவும் */
+    }
 
-.top-l-slider .nivoSlider {
-    position: relative;
-    width: 100% !important;
-    height: 100% !important;
-    overflow: hidden;
-    text-align: Center;
-}
+    /* Nivo Slider இதர தேவைகள் */
+    .nivo-main-image { display: block !important; position: relative !important; width: 100% !important; }
+    .nivo-slice, .nivo-box { display: block; position: absolute; z-index: 5; height: 100%; top: 0; }
+    .nivo-directionNav a { display: none; } /* அம்புக்குறிகள் மறைப்பு */
+    .nivo-controlNav { display: none; } /* கீழே உள்ள புள்ளிகள் மறைப்பு */
+  </style>
+</head>
 
-.top-l-slider .nivoSlider img {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    max-width: none;
-    height: 100% !important;
-    width: 100% !important;
-    object-fit: cover;
-}
+<body>
 
-.nivo-main-image {
-    display: block !important;
-    position: relative !important;
-    width: 100% !important; /* 1280px நீக்கப்பட்டது */
-    height: 100% !important;
-    object-fit: cover;
-}
+  <div class='slidernivo'>
+    <div class='recent-slider' data-label='jmain'></div>
+  </div>
 
-.nivoSlider a.nivo-imageLink {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    z-index: 6;
-    display: none;
-    background: white;
-    filter: alpha(opacity=0);
-    opacity: 0;
-}
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src='https://host.rtbs.in/rtcs/nivoslider.js'></script>
 
-.nivo-slice {
-    display: block;
-    position: absolute;
-    z-index: 5;
-    height: 100%;
-    top: 0;
-}
+  <script>
+    $(".recent-slider").each(function() {
+      $(this).append('<div id="slider" class="nivoSlider"></div>');
+      var e = $(this).attr("data-label"),
+          n = "https://rss.rtbs.in/feeds/posts/summary/-/" + e + "?max-results=" + 5 + "&alt=json-in-script",
+          l = $(this);
 
-.nivo-box {
-    display: block;
-    position: absolute;
-    z-index: 5;
-    overflow: hidden;
-}
+      $.ajax({
+        type: "GET",
+        url: n,
+        async: true,
+        contentType: "application/json",
+        dataType: "jsonp",
+        success: function(s) {
+          if (s.feed && s.feed.entry) {
+            for (var r = 0; r < s.feed.entry.length; r++) {
+              var entry = s.feed.entry[r];
+              var link = "";
+              for (var i = 0; i < entry.link.length; i++) {
+                if (entry.link[i].rel == "alternate") {
+                  link = entry.link[i].href;
+                  break;
+                }
+              }
+              var imgUrl = "https://lh3.googleusercontent.com/24RAodFW8xxgzHpVBAthJHsf_szjRoa3-KzlAEdFgB6X6A5Gmlm-nCvt5nRkE95T52PmHSE4Mf5wvNGoRUgIXjjHi4PjiucY3RimpoVdiTPKQN5Jdj2n9-9bW0wUSzQcirYstqGO8Unv5v7RMU5JD_Q-lEuBgtUfXEmHxOs6ENvJBanzORTRCVXwSzYNRJxijualu8mHhR5S6DG8l4CIo6uADoudrzXGsz7oszRXccZK_FbasxG5xJ9O0mtPuIVavRO8Or89er61NiJIctiUWV0YqtMMOqK214VSjs8-lAx_7LmkneNOrkP7NdXvGTK0fxHgRBiHL7Tm2weLM33LjyMEzY4ygL68Hx81iJK4D-YRmUa8NJhpEKs8q93jgjwJ3ZrgDSzn2pKI-y3c5VWrYf-H38_lWOIMf7uuTOzKUOqoQYZLN8bhFYVyB4bLUwfX0gDtTT38QsV6MILDBQZl6gHQrHt1C8Lpp9EZ0x-1Vl2r2HeKlXS60iuRKZdfSWZNbibE2y9GCfdbBzRUGa-G3GRkQstDu2UBtNOo6WHZ4GI=w600-h250-no";
+              try {
+                // OBSல் தெளிவாக தெரிய பெரிய படம் (High Res)
+                imgUrl = entry.media$thumbnail.url.replace("s72-c", "s1600"); 
+              } catch (p) {}
 
-.nivo-box img {
-    display: block;
-    /* பாக்ஸ் எஃபெக்ட் உடையும்போது படம் சரியாகத் தெரிய */
-    width: 100% !important; 
-    height: 100% !important;
-}
+              var title = entry.title.$t;
+              // Image Tag உருவாக்கம்
+              var html = '<img src="' + imgUrl + '" title="' + title + '" />';
+              l.find("#slider").append(html);
+            }
 
-/* Caption styles */
-.nivo-caption {
-    position: absolute;
-    bottom: 10px;
-    left: 5%;
-    display: block;
-    width: 90%;
-    text-align: center;
-    font: 400 26px 'segoe ui', sans-serif;
-    z-index: 8;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+            // Slider ஐ துவக்குதல்
+            $("#slider").nivoSlider({
+              effect: "fade", // OBSக்கு 'fade' சிறந்தது (random விட smooth ஆக இருக்கும்)
+              pauseTime: 5000,
+              directionNav: false,
+              controlNav: false,
+              pauseOnHover: false
+            });
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
