@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Responsive Slider for OBS</title>
+  <style>
+    /* பக்கம் முழுவதையும் பயன்படுத்த CSS */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden; /* ஸ்க்ரால் பார் வராமல் தடுக்க */
+      background-color: transparent; /* OBS இல் பின்னணி மறைய */
+    }
+
+    /* Slider Container */
+    .slidernivo, .recent-slider {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* Nivo Slider அடிப்படை மாற்றங்கள் */
+    .nivoSlider {
+      position: relative;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden;
+    }
+
+    /* படங்கள் தானாக அளவை மாற்றிக்கொள்ள (Auto Fit) */
+    .nivoSlider img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+      
+      /* மிக முக்கியம்: OBSல் நீங்கள் வைக்கும் அளவுக்கு படம் 'Fit' ஆக */
+      object-fit: cover; 
+      /* குறிப்பு: 
+         object-fit: cover; -> பெட்டி முழுவதையும் நிரப்பும் (ஓரங்கள் கட் ஆகலாம்).
+         object-fit: contain; -> படம் முழுமையாகத் தெரியும் (ஓரங்களில் கேப் விழலாம்).
+      */
+    }
+
+    /* தலைப்புகள் (Captions) - தேவைப்பட்டால் மட்டும் வைத்துக்கொள்ளுங்கள் */
+    .nivo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      font-family: sans-serif;
+      z-index: 99;
+      opacity: 0.9;
+      box-sizing: border-box;
+      display: none; /* OBSல் Caption வேண்டாம் என்றால் இதை அப்படியே விடவும் */
+    }
+
+    /* Nivo Slider இதர தேவைகள் */
+    .nivo-main-image { display: block !important; position: relative !important; width: 100% !important; }
+    .nivo-slice, .nivo-box { display: block; position: absolute; z-index: 5; height: 100%; top: 0; }
+    .nivo-directionNav a { display: none; } /* அம்புக்குறிகள் மறைப்பு */
+    .nivo-controlNav { display: none; } /* கீழே உள்ள புள்ளிகள் மறைப்பு */
+  </style>
+</head>
+
+<body>
+
+  <div class='slidernivo'>
+    <div class='recent-slider' data-label='jmain'></div>
+  </div>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src='https://host.rtbs.in/rtcs/nivoslider.js'></script>
+
+  <script>
+    $(".recent-slider").each(function() {
+      $(this).append('<div id="slider" class="nivoSlider"></div>');
+      var e = $(this).attr("data-label"),
+          n = "https://rss.rtbs.in/feeds/posts/summary/-/" + e + "?max-results=" + 5 + "&alt=json-in-script",
+          l = $(this);
+
+      $.ajax({
+        type: "GET",
+        url: n,
+        async: true,
+        contentType: "application/json",
+        dataType: "jsonp",
+        success: function(s) {
+          if (s.feed && s.feed.entry) {
+            for (var r = 0; r < s.feed.entry.length; r++) {
+              var entry = s.feed.entry[r];
+              var link = "";
+              for (var i = 0; i < entry.link.length; i++) {
+                if (entry.link[i].rel == "alternate") {
+                  link = entry.link[i].href;
+                  break;
+                }
+              }
+              var imgUrl = "https://lh3.googleusercontent.com/24RAodFW8xxgzHpVBAthJHsf_szjRoa3-KzlAEdFgB6X6A5Gmlm-nCvt5nRkE95T52PmHSE4Mf5wvNGoRUgIXjjHi4PjiucY3RimpoVdiTPKQN5Jdj2n9-9bW0wUSzQcirYstqGO8Unv5v7RMU5JD_Q-lEuBgtUfXEmHxOs6ENvJBanzORTRCVXwSzYNRJxijualu8mHhR5S6DG8l4CIo6uADoudrzXGsz7oszRXccZK_FbasxG5xJ9O0mtPuIVavRO8Or89er61NiJIctiUWV0YqtMMOqK214VSjs8-lAx_7LmkneNOrkP7NdXvGTK0fxHgRBiHL7Tm2weLM33LjyMEzY4ygL68Hx81iJK4D-YRmUa8NJhpEKs8q93jgjwJ3ZrgDSzn2pKI-y3c5VWrYf-H38_lWOIMf7uuTOzKUOqoQYZLN8bhFYVyB4bLUwfX0gDtTT38QsV6MILDBQZl6gHQrHt1C8Lpp9EZ0x-1Vl2r2HeKlXS60iuRKZdfSWZNbibE2y9GCfdbBzRUGa-G3GRkQstDu2UBtNOo6WHZ4GI=w600-h250-no";
+              try {
+                // OBSல் தெளிவாக தெரிய பெரிய படம் (High Res)
+                imgUrl = entry.media$thumbnail.url.replace("s72-c", "s1600"); 
+              } catch (p) {}
+
+              var title = entry.title.$t;
+              // Image Tag உருவாக்கம்
+              var html = '<img src="' + imgUrl + '" title="' + title + '" />';
+              l.find("#slider").append(html);
+            }
+
+            // Slider ஐ துவக்குதல்
+            $("#slider").nivoSlider({
+              effect: "fade", // OBSக்கு 'fade' சிறந்தது (random விட smooth ஆக இருக்கும்)
+              pauseTime: 5000,
+              directionNav: false,
+              controlNav: false,
+              pauseOnHover: false
+            });
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
