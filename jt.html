@@ -2,136 +2,133 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Responsive OBS Slider</title>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nivoslider/3.2.0/nivo-slider.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nivoslider/3.2.0/themes/default/default.css" />
-
+  <title>Slider with label fot blogger</title>
   <style>
-    /* பக்கம் முழுவதும் பயன்படுத்த */
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background-color: transparent;
-    }
+/* OBS-ல் முழு திரையில் தெரிய அடிப்படை மாற்றம் 
+   (HTML & BODY Full Size)
+*/
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
 
-    /* Slider Container */
-    .slider-wrapper {
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
+/*
+* jQuery Nivo Slider v3.2
+* http://nivo.dev7studios.com
+* Use in www.ar1web.com
+* Copyright 2012, Dev7studios
+* Free to use and abuse under the MIT license.
+* https://www.opensource.org/licenses/mit-license.php
+*/
+.slidernivo {
+    width: 100%;
+    height: 100%;
+}
 
-    .nivoSlider {
-      width: 100% !important;
-      height: 100% !important;
-      position: relative;
-    }
+/* The Nivo Slider styles - FIXED for OBS Responsive */
+.recent-slider {
+    width: 100% !important; 
+    height: 100% !important;
+}
 
-    /* படங்கள் தானாக அளவை மாற்றிக்கொள்ள (Auto Fit) */
-    .nivoSlider img {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover; /* OBS பெட்டியை முழுமையாக நிரப்பும் */
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+.nivoSlider {
+    position: relative;
+    z-index: 99999;
+    width: 100% !important;    /* 1280px ஐ 100% ஆக மாற்றப்பட்டது */
+    height: 100% !important;   /* 720px ஐ 100% ஆக மாற்றப்பட்டது */
+    overflow: hidden;
+    text-align: Center;
+}
 
-    /* தேவையில்லாதவற்றை மறைக்க */
-    .nivo-directionNav, .nivo-controlNav, .nivo-caption {
-      display: none !important;
-    }
-
-    /* Loading Text (படம் வரும் வரை இது தெரியும்) */
-    #loading-text {
-      color: white;
-      font-size: 24px;
-      font-family: sans-serif;
-      text-align: center;
-      margin-top: 20%;
-      display: block;
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class='slider-wrapper theme-default'>
-    <div id="loading-text">Loading Images... Please wait.</div>
+.nivoSlider img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    max-width: none;
     
-    <div class='recent-slider' data-label='jmain'></div>
-  </div>
+    /* OBS-ல் படம் தானாக Fit ஆக முக்கிய மாற்றம் */
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover; /* இது ரேஷியோ மாறாமல் படத்தை பெட்டிக்குள் நிரப்பும் */
+}
 
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-nivoslider/3.2.0/jquery.nivo.slider.pack.min.js'></script>
+.top-l-slider .nivoSlider {
+    position: relative;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden;
+    text-align: Center;
+}
 
-  <script>
-    $(".recent-slider").each(function() {
-      // Slider div ஐ உருவாக்குதல்
-      $(this).append('<div id="slider" class="nivoSlider"></div>');
-      
-      var label = $(this).attr("data-label");
-      // Feed URL
-      var feedUrl = "https://rss.rtbs.in/feeds/posts/summary/-/" + label + "?max-results=5&alt=json-in-script";
-      var container = $(this);
+.top-l-slider .nivoSlider img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    max-width: none;
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover;
+}
 
-      $.ajax({
-        type: "GET",
-        url: feedUrl,
-        async: true,
-        contentType: "application/json",
-        dataType: "jsonp",
-        success: function(data) {
-          // படங்கள் உள்ளதா என சோதித்தல்
-          if (data.feed && data.feed.entry) {
-            
-            // Loading எழுத்தை மறைத்தல்
-            $("#loading-text").hide();
+.nivo-main-image {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important; /* 1280px நீக்கப்பட்டது */
+    height: 100% !important;
+    object-fit: cover;
+}
 
-            for (var r = 0; r < data.feed.entry.length; r++) {
-              var entry = data.feed.entry[r];
-              var imgUrl = "";
+.nivoSlider a.nivo-imageLink {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    z-index: 6;
+    display: none;
+    background: white;
+    filter: alpha(opacity=0);
+    opacity: 0;
+}
 
-              // படத்தின் URL ஐ எடுத்தல்
-              if (entry.media$thumbnail) {
-                // OBS க்காக பெரிய படமாக மாற்றுதல் (s1600)
-                imgUrl = entry.media$thumbnail.url.replace("s72-c", "s1600"); 
-              } else {
-                 // படம் இல்லையென்றால் மாற்றுப் படம்
-                 imgUrl = "https://via.placeholder.com/1280x720?text=No+Image";
-              }
+.nivo-slice {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    height: 100%;
+    top: 0;
+}
 
-              var html = '<img src="' + imgUrl + '" title="" />';
-              container.find("#slider").append(html);
-            }
+.nivo-box {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    overflow: hidden;
+}
 
-            // Slider ஐ இயக்குதல் (பழைய Random Effect உடன்)
-            $("#slider").nivoSlider({
-              effect: "random",
-              slices: 15,
-              boxCols: 8,
-              boxRows: 4,
-              animSpeed: 500,
-              pauseTime: 5000,
-              directionNav: false,
-              controlNav: false,
-              pauseOnHover: false
-            });
+.nivo-box img {
+    display: block;
+    /* பாக்ஸ் எஃபெக்ட் உடையும்போது படம் சரியாகத் தெரிய */
+    width: 100% !important; 
+    height: 100% !important;
+}
 
-          } else {
-             $("#loading-text").text("Error: No posts found for label '" + label + "'");
-          }
-        },
-        error: function() {
-           $("#loading-text").text("Error: Failed to load feed from rtbs.in");
-        }
-      });
-    });
-  </script>
-
-</body>
-</html>
+/* Caption styles */
+.nivo-caption {
+    position: absolute;
+    bottom: 10px;
+    left: 5%;
+    display: block;
+    width: 90%;
+    text-align: center;
+    font: 400 26px 'segoe ui', sans-serif;
+    z-index: 8;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
