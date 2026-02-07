@@ -16,6 +16,8 @@ width:1280px;
 height:720px;
 overflow: hidden;
 text-align:Center;
+border-radius: 15px;
+border: 4px solid #fff000;
 }
 .nivoSlider img {
 position:absolute;
@@ -23,8 +25,6 @@ top:0px;
 left:0px;
 max-width: none;
 height:720px !important;
-border-radius: 15px;
-border: 4px solid #fff000;
 }
 .top-l-slider .nivoSlider {
 position:relative;
