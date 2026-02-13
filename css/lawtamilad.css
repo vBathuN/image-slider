@@ -13,7 +13,7 @@
 position:relative;
       z-index: 99999;
 width:720px;
-height:100px;
+height:110px;
 overflow: hidden;
 text-align:Center;
 }
@@ -22,12 +22,12 @@ position:absolute;
 top:0px;
 left:0px;
 max-width: none;
-height:100px !important;
+height:110px !important;
 }
 .top-l-slider .nivoSlider {
 position:relative;
 width:720px;
-height:100px;
+height:110px;
 overflow: hidden;
 text-align:Center;
 }
